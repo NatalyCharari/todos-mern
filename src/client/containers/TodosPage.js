@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchsTodos } from '../reducers/actions';
+import { fetchTodos } from '../reducers/actions';
 import TodosPageComponent from '../components/TodosPage';
 
 export const TodosPageContainer = (props) => {
@@ -9,10 +9,11 @@ export const TodosPageContainer = (props) => {
 
 const mapStateToProps = ({ reduxState }) => ({
   todos: reduxState.todos,
+  token: reduxState.token,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  readTodos: (token) => dispatch(fetchsTodos(token)),
+  readTodos: (token) => dispatch(fetchTodos(token)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodosPageContainer);
