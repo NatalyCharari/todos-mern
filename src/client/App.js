@@ -5,12 +5,12 @@ import Navigation from './components/Navigation';
 import TodoAddForm from './components/TodoAddForm';
 import TodoEditForm from './components/TodoEditForm';
 
-import { removeToken } from './reducers/actions';
+import { removeToken, updatedCurrentTodo } from './reducers/actions';
 
 import LoginForm from './containers/LoginForm';
 import TodosPage from './containers/TodosPage';
 
-const App = ({ currentTodo, logout, title, token }) => {
+const App = ({ currentTodo, logout, setCurrentTodo, title, token }) => {
   /*constructor(props) {
     super(props);
 
@@ -92,16 +92,9 @@ const App = ({ currentTodo, logout, title, token }) => {
       .catch((err) => console.log('err', err));
   }*/
 
-  /*showEditForm(id) {
-    const todo = this.state.todos.find((todo) => {
-      return todo._id == id;
-    });
-    this.setState({ currentTest: todo });
-  }*/
+  const showEditForm = (id) => setCurrentTodo(id);
 
-  /*showAddForm() {
-    this.setState({ currentTest: null });
-  }*/
+  const showAddForm = () => setCurrentTodo(null);
 
   return (
     <div>
@@ -113,7 +106,7 @@ const App = ({ currentTodo, logout, title, token }) => {
               {currentTodo ? (
                 <TodoEditForm
                   todo={currentTodo}
-                  //onResetForm={this.showAddForm}
+                  onResetForm={showAddForm}
                   //onEdit={this.editTodo}
                 />
               ) : (
@@ -121,7 +114,7 @@ const App = ({ currentTodo, logout, title, token }) => {
               )}
             </div>
             <div className="col s8">
-              <TodosPage showEditForm={null} />
+              <TodosPage showEditForm={showEditForm} />
             </div>
           </div>
         ) : (
@@ -147,6 +140,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(removeToken);
     window.location.reload();
   },
+  setCurrentTodo: (todoIdentifier) =>
+    dispatch(updatedCurrentTodo(todoIdentifier)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

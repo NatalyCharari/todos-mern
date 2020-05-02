@@ -5,6 +5,7 @@ export const FETCH_TODOS_SUCCESS = 'FETCH_TODOS_SUCCESS';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REMOVE_TOKEN = 'REMOVE_TOKEN';
+export const UPDATE_CURRENT_TODO = 'UPDATE_CURRENT_TODO';
 
 const fetchTodosSuccess = (todos) => ({
   type: FETCH_TODOS_SUCCESS,
@@ -23,6 +24,11 @@ const registerSuccess = ({ token }) => ({
 
 export const removeToken = () => ({
   type: REMOVE_TOKEN,
+});
+
+export const updatedCurrentTodo = (todoIdentifier) => ({
+  type: UPDATE_CURRENT_TODO,
+  payload: { todoIdentifier },
 });
 
 const handleErrors = (error) => {

@@ -1,8 +1,11 @@
+import { find } from 'lodash';
+
 import {
   FETCH_TODOS_SUCCESS,
   LOGIN_SUCCESS,
   REGISTER_SUCCESS,
   REMOVE_TOKEN,
+  UPDATE_CURRENT_TODO,
 } from './actions';
 
 const initialState = {
@@ -33,6 +36,17 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         token: null,
+      };
+    case UPDATE_CURRENT_TODO:
+      const currentTodo = action.payload.todoIdentifier
+        ? find(
+            state.todos,
+            (todo) => todo._id === action.payload.todoIdentifier
+          )
+        : null;
+      return {
+        ...state,
+        currentTodo,
       };
     default:
       return state;
