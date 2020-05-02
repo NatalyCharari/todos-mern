@@ -23,7 +23,7 @@ export const removeTodo = (id, token) =>
   }).catch(logError);
 
 export const editTodo = (todo, token) =>
-  fetch(`${baseDomain}/${todo.id}`, {
+  fetch(`${baseDomain}/${todo._id}`, {
     method: 'PUT',
     body: JSON.stringify({
       title: todo.title,

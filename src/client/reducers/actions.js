@@ -1,4 +1,4 @@
-import { getTodos } from '../api/todo';
+import { getTodos, editTodo } from '../api/todo';
 import { login, register } from '../api/user';
 
 export const FETCH_TODOS_SUCCESS = 'FETCH_TODOS_SUCCESS';
@@ -45,11 +45,14 @@ const handleErrors = (error) => {
   }
 };
 
-const handleResponse = (request, action) => (dispatch) =>
+const handleResponse = (request, action = null, receiver = null) => (
+  dispatch
+) =>
   request
     .then((response) => response.json())
     .then((data) => {
-      dispatch(action(data));
+      if (action) dispatch(action(data));
+      if (receiver) receiver();
     })
     .catch(handleErrors);
 
@@ -64,7 +67,15 @@ const fetchData = (request, action, data = null) => (dispatch) => {
 export const fetchTodos = (token) =>
   fetchData(getTodos, fetchTodosSuccess, token);
 
+export const saveCurrentTodo = (todo, token, receiver) => (dispatch) =>
+  dispatch(handleResponse(editTodo(todo, token), null, receiver));
+
 export const loginUser = (user) => fetchData(login, loginSuccess, user);
 
 export const registerUser = (user) =>
   fetchData(register, registerSuccess, user);
+
+export const onResetForm = (token) => (dispatch) => {
+  dispatch(updatedCurrentTodo(null));
+  dispatch(fetchTodos(token));
+};

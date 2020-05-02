@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 
 import Navigation from './components/Navigation';
 import TodoAddForm from './components/TodoAddForm';
-import TodoEditForm from './components/TodoEditForm';
 
 import { removeToken, updatedCurrentTodo } from './reducers/actions';
 
 import LoginForm from './containers/LoginForm';
 import TodosPage from './containers/TodosPage';
+import EditionForm from './containers/EditionForm';
 
 const App = ({ currentTodo, logout, setCurrentTodo, title, token }) => {
   /*constructor(props) {
@@ -88,11 +88,7 @@ const App = ({ currentTodo, logout, setCurrentTodo, title, token }) => {
           <div className="row">
             <div className="col s4">
               {currentTodo ? (
-                <TodoEditForm
-                  todo={currentTodo}
-                  onResetForm={showAddForm}
-                  //onEdit={this.editTodo}
-                />
+                <EditionForm todo={currentTodo} onResetForm={showAddForm} />
               ) : (
                 <TodoAddForm onAdd={null} />
               )}
