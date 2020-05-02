@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 
 import Navigation from './components/Navigation';
 import TodoAddForm from './components/TodoAddForm';
 import TodoEditForm from './components/TodoEditForm';
-import TodoCard from './components/TodoCard';
-import LoginForm from './components/LoginForm';
 
+import { removeToken } from './reducers/actions';
+
+import LoginForm from './containers/LoginForm';
 import TodosPage from './containers/TodosPage';
 
-class App extends Component {
-  constructor(props) {
+const App = ({ currentTodo, logout, title, token }) => {
+  /*constructor(props) {
     super(props);
 
     const items = localStorage.getItem('todos')
@@ -29,11 +31,11 @@ class App extends Component {
     this.showEditForm = this.showEditForm.bind(this);
     this.showAddForm = this.showAddForm.bind(this);
 
-    this.login = this.login.bind(this);
-    this.signup = this.signup.bind(this);
-  }
+    //this.login = this.login.bind(this);
+    //this.signup = this.signup.bind(this);
+  }*/
 
-  removeTodo(id) {
+  /*removeTodo(id) {
     fetch(`/api/todos/${id}`, {
       method: 'DELETE',
       headers: {
@@ -49,9 +51,9 @@ class App extends Component {
         this.setState({ todos: newTodos });
       })
       .catch((err) => console.log('err', err));
-  }
+  }*/
 
-  editTodo(todo) {
+  /*editTodo(todo) {
     fetch(`/api/todos/${todo.id}`, {
       method: 'PUT',
       body: JSON.stringify({
@@ -70,9 +72,9 @@ class App extends Component {
         //this.getTodos();
       })
       .catch((err) => console.log('err', err));
-  }
+  }*/
 
-  addTodo(task) {
+  /*addTodo(task) {
     fetch('/api/todos', {
       method: 'POST',
       body: JSON.stringify(task),
@@ -88,20 +90,20 @@ class App extends Component {
         //this.getTodos();
       })
       .catch((err) => console.log('err', err));
-  }
+  }*/
 
-  showEditForm(id) {
+  /*showEditForm(id) {
     const todo = this.state.todos.find((todo) => {
       return todo._id == id;
     });
     this.setState({ currentTest: todo });
-  }
+  }*/
 
-  showAddForm() {
+  /*showAddForm() {
     this.setState({ currentTest: null });
-  }
+  }*/
 
-  login(user) {
+  /*login(user) {
     fetch('/api/users/login', {
       method: 'POST',
       body: JSON.stringify(user),
@@ -117,15 +119,15 @@ class App extends Component {
         //this.getTodos();
       })
       .catch((err) => console.log('err', err));
-  }
+  }*/
 
-  logout() {
-    //localStorage.clear();
-    //this.setState({ token: null });
-    window.location.reload();
-  }
+  //logout() {
+  //localStorage.clear();
+  //this.setState({ token: null });
+  //window.location.reload();
+  //}
 
-  signup(user) {
+  /*signup(user) {
     fetch('/api/users/signup', {
       method: 'POST',
       body: JSON.stringify(user),
@@ -140,44 +142,52 @@ class App extends Component {
         //this.getTodos();
       })
       .catch((err) => console.log('err', err));
-  }
+  }*/
 
-  render() {
-    return (
-      <div>
-        <Navigation title={this.state.title} onLogout={this.logout} />
-        <div className="container">
-          {this.state.token ? (
-            <div className="row">
-              <div className="col s4">
-                {this.state.currentTest ? (
-                  <TodoEditForm
-                    todo={this.state.currentTest}
-                    onResetForm={this.showAddForm}
-                    onEdit={this.editTodo}
-                  />
-                ) : (
-                  <TodoAddForm onAdd={this.addTodo} />
-                )}
-              </div>
-              <div className="col s8">
-                <TodosPage
-                  showEditForm={this.showEditForm}
-                  token={this.state.token}
+  return (
+    <div>
+      <Navigation title={title} onLogout={logout} />
+      <div className="container">
+        {token ? (
+          <div className="row">
+            <div className="col s4">
+              {currentTodo ? (
+                <TodoEditForm
+                //todo={this.state.currentTest}
+                //onResetForm={this.showAddForm}
+                //onEdit={this.editTodo}
                 />
-              </div>
+              ) : (
+                <TodoAddForm onAdd={null} />
+              )}
             </div>
-          ) : (
-            <div className="row">
-              <div className="col s6 offset-m3 center-align">
-                <LoginForm onLogin={this.login} onSignup={this.signup} />
-              </div>
+            <div className="col s8">
+              <TodosPage showEditForm={null} />
             </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="row">
+            <div className="col s6 offset-m3 center-align">
+              <LoginForm />
+            </div>
+          </div>
+        )}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-export default App;
+const mapStateToProps = ({ reduxState }) => ({
+  currentTodo: reduxState.currentTodo,
+  title: reduxState.title,
+  token: reduxState.token,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => {
+    dispatch(removeToken);
+    window.location.reload();
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
