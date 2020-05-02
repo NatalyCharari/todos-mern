@@ -21,7 +21,7 @@ class App extends Component {
       todos: items,
       currentTest: null,
     };
-    this.getTodos = this.getTodos.bind(this);
+
     this.removeTodo = this.removeTodo.bind(this);
     this.editTodo = this.editTodo.bind(this);
     this.addTodo = this.addTodo.bind(this);
@@ -31,22 +31,6 @@ class App extends Component {
 
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
-  }
-
-  getTodos() {
-    fetch('/api/todos', {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        authorization: 'bearer ' + localStorage.getItem('token'),
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        localStorage.setItem('todos', JSON.stringify(data));
-        this.setState({ todos: data });
-      })
-      .catch((err) => console.log('err', err));
   }
 
   removeTodo(id) {
