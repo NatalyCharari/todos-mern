@@ -1,63 +1,81 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-class LoginForm extends React.Component {
-    
-    constructor(props) {
-        super(props)
-        this.state = {
-            email: '',
-            password: ''
-        }
-        this.submmitTodo = this.submmitTodo.bind(this)
-        this.handleInput = this.handleInput.bind(this)
-        this.handelSignup = this.handelSignup.bind(this)
-    }
+const LoginForm = ({ onLogin, onSignup }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    submmitTodo(e) {
-        e.preventDefault()
+  const handleEmailInput = (e) => {
+    setEmail(e.target.value);
+  };
 
-        this.props.onLogin(this.state)
-        this.setState({ email: '', password: '' })
-    }
+  const handlePasswordInput = (e) => {
+    setPassword(e.target.value);
+  };
 
-    handleInput(e) {
-        const { value, name } = e.target
-        this.setState({
-            [name]: value
-        })
-    }
+  const handleLogin = (e) => {
+    e.preventDefault();
+    onLogin({ email, password });
+  };
 
-    handelSignup(e) {
-        e.preventDefault()
+  const handleSignup = (e) => {
+    e.preventDefault();
+    onSignup({ email, password });
+  };
 
-        this.props.onSignup(this.state)
-        this.setState({ email: '', password: '' })
-    }
-
-    render() {
-        return (
-            <div className="card">
-                <div className="card-content">
-                    <form onSubmit={this.submmitTodo}>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input name="email" type="email" placeholder="Email" value={this.state.email} onChange={this.handleInput}/>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input name="password" type="password" placeholder="Password" value={this.state.password} onChange={this.handleInput} />
-                            </div>
-                        </div>
-                        <div>
-                            <button type="submit" className="btn green darken-2">Login</button>
-                            <button type="button" style={{ marginLeft: '4px' }} className="btn blue darken-3" onClick={this.handelSignup}>Signup</button>
-                        </div>
-                    </form>
-                </div>
+  return (
+    <div className="card">
+      <div className="card-content">
+        <form onSubmit={handleLogin}>
+          <div className="row">
+            <div className="input-field col s12">
+              <input
+                name="email"
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={handleEmailInput}
+              />
             </div>
-        )
-    }
-}
+          </div>
+          <div className="row">
+            <div className="input-field col s12">
+              <input
+                name="password"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={handlePasswordInput}
+              />
+            </div>
+          </div>
+          <div>
+            <button type="submit" className="btn green darken-2">
+              Login
+            </button>
+            <button
+              type="button"
+              style={{ marginLeft: '4px' }}
+              className="btn blue darken-3"
+              onClick={handleSignup}
+            >
+              Signup
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
 
-export default LoginForm
+LoginForm.defaultProps = {
+  onLogin: () => {},
+  onSignup: () => {},
+};
+
+LoginForm.propTypes = {
+  onLogin: PropTypes.func,
+  onSignup: PropTypes.func,
+};
+
+export default LoginForm;
