@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import Navigation from './components/Navigation';
 import TodoAddForm from './components/TodoAddForm';
 
-import { removeToken, updatedCurrentTodo } from './reducers/actions';
+import { removeToken } from './reducers/actions';
 
 import LoginForm from './containers/LoginForm';
 import TodosPage from './containers/TodosPage';
 import EditionForm from './containers/EditionForm';
 
-const App = ({ currentTodo, logout, setCurrentTodo, title, token }) => {
+const App = ({ currentTodo, logout, title, token }) => {
   /*constructor(props) {
     super(props);
 
@@ -54,10 +54,6 @@ const App = ({ currentTodo, logout, setCurrentTodo, title, token }) => {
       .catch((err) => console.log('err', err));
   }*/
 
-  const showEditForm = (id) => setCurrentTodo(id);
-
-  const showAddForm = () => setCurrentTodo(null);
-
   return (
     <div>
       <Navigation title={title} onLogout={logout} />
@@ -65,14 +61,10 @@ const App = ({ currentTodo, logout, setCurrentTodo, title, token }) => {
         {token ? (
           <div className="row">
             <div className="col s4">
-              {currentTodo ? (
-                <EditionForm />
-              ) : (
-                <TodoAddForm onAdd={null} />
-              )}
+              {currentTodo ? <EditionForm /> : <TodoAddForm onAdd={null} />}
             </div>
             <div className="col s8">
-              <TodosPage showEditForm={showEditForm} />
+              <TodosPage />
             </div>
           </div>
         ) : (
@@ -98,8 +90,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(removeToken);
     window.location.reload();
   },
-  setCurrentTodo: (todoIdentifier) =>
-    dispatch(updatedCurrentTodo(todoIdentifier)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
