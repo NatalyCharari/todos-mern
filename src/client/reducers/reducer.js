@@ -8,9 +8,9 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_DATA_SUCCESS:
-      console.log(action);
       return {
         ...state,
+        todos: action.payload,
       };
     default:
       return state;

@@ -23,9 +23,9 @@ const handleErrors = (error) => {
 
 const handleResponse = (request) => (dispatch) =>
   request
-    .then((response) => {
-      console.log(response);
-      dispatch(fetchDataSuccess(response.data));
+    .then((response) => response.json())
+    .then((data) => {
+      dispatch(fetchDataSuccess(data));
     })
     .catch(handleErrors);
 
