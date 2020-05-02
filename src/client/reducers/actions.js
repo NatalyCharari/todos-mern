@@ -1,8 +1,9 @@
 import { getTodos } from '../api/todo';
-import { login } from '../api/user';
+import { login, register } from '../api/user';
 
 export const FETCH_TODOS_SUCCESS = 'FETCH_TODOS_SUCCESS';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REMOVE_TOKEN = 'REMOVE_TOKEN';
 
 const fetchTodosSuccess = (todos) => ({
@@ -12,6 +13,11 @@ const fetchTodosSuccess = (todos) => ({
 
 const loginSuccess = ({ token }) => ({
   type: LOGIN_SUCCESS,
+  payload: { token },
+});
+
+const registerSuccess = ({ token }) => ({
+  type: REGISTER_SUCCESS,
   payload: { token },
 });
 
@@ -37,7 +43,6 @@ const handleResponse = (request, action) => (dispatch) =>
   request
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       dispatch(action(data));
     })
     .catch(handleErrors);
@@ -54,3 +59,6 @@ export const fetchTodos = (token) =>
   fetchData(getTodos, fetchTodosSuccess, token);
 
 export const loginUser = (user) => fetchData(login, loginSuccess, user);
+
+export const registerUser = (user) =>
+  fetchData(register, registerSuccess, user);

@@ -103,47 +103,6 @@ const App = ({ currentTodo, logout, title, token }) => {
     this.setState({ currentTest: null });
   }*/
 
-  /*login(user) {
-    fetch('/api/users/login', {
-      method: 'POST',
-      body: JSON.stringify(user),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        this.setState({ token: data.token });
-        //localStorage.setItem('token', data.token);
-        //this.getTodos();
-      })
-      .catch((err) => console.log('err', err));
-  }*/
-
-  //logout() {
-  //localStorage.clear();
-  //this.setState({ token: null });
-  //window.location.reload();
-  //}
-
-  /*signup(user) {
-    fetch('/api/users/signup', {
-      method: 'POST',
-      body: JSON.stringify(user),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        localStorage.setItem('token', data.token);
-        //this.getTodos();
-      })
-      .catch((err) => console.log('err', err));
-  }*/
-
   return (
     <div>
       <Navigation title={title} onLogout={logout} />
@@ -153,9 +112,9 @@ const App = ({ currentTodo, logout, title, token }) => {
             <div className="col s4">
               {currentTodo ? (
                 <TodoEditForm
-                //todo={this.state.currentTest}
-                //onResetForm={this.showAddForm}
-                //onEdit={this.editTodo}
+                  todo={currentTodo}
+                  //onResetForm={this.showAddForm}
+                  //onEdit={this.editTodo}
                 />
               ) : (
                 <TodoAddForm onAdd={null} />

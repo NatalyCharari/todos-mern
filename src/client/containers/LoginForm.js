@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import LoginFormComponent from '../components/LoginForm';
-import { loginUser } from '../reducers/actions';
+import { loginUser, registerUser } from '../reducers/actions';
 
 export const LoginFormContainer = (props) => {
   return <LoginFormComponent {...props} />;
@@ -10,7 +10,8 @@ export const LoginFormContainer = (props) => {
 const mapStateToProps = ({ reduxState }) => ({});
 
 const mapDispatchToProps = (dispatch) => ({
-    onLogin: (user) => dispatch(loginUser(user)),
+  onLogin: (user) => dispatch(loginUser(user)),
+  onSignup: (user) => dispatch(registerUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginFormComponent);

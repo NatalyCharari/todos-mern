@@ -1,4 +1,9 @@
-import { FETCH_TODOS_SUCCESS, LOGIN_SUCCESS, REMOVE_TOKEN } from './actions';
+import {
+  FETCH_TODOS_SUCCESS,
+  LOGIN_SUCCESS,
+  REGISTER_SUCCESS,
+  REMOVE_TOKEN,
+} from './actions';
 
 const initialState = {
   title: 'Todo List',
@@ -15,6 +20,11 @@ const reducer = (state = initialState, action) => {
         todos: action.payload.todos,
       };
     case LOGIN_SUCCESS:
+      return {
+        ...state,
+        token: action.payload.token,
+      };
+    case REGISTER_SUCCESS:
       return {
         ...state,
         token: action.payload.token,

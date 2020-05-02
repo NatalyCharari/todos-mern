@@ -14,3 +14,13 @@ export const login = (user) =>
       'Content-Type': 'application/json',
     },
   }).catch(logError);
+
+export const register = (user) =>
+  fetch(`${baseDomain}/signup`, {
+    method: 'POST',
+    body: JSON.stringify(user),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  }).catch(logError);
