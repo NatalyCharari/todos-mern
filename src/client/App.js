@@ -14,8 +14,7 @@ const App = ({ currentTodo, logout, setCurrentTodo, title, token }) => {
   /*constructor(props) {
     super(props);
 
-    this.removeTodo = this.removeTodo.bind(this);
-    this.editTodo = this.editTodo.bind(this);
+    this.removeTodo = this.removeTodo.bind(this);F
     this.addTodo = this.addTodo.bind(this);
   }*/
 
@@ -33,27 +32,6 @@ const App = ({ currentTodo, logout, setCurrentTodo, title, token }) => {
         });
         localStorage.setItem('todos', JSON.stringify(newTodos));
         this.setState({ todos: newTodos });
-      })
-      .catch((err) => console.log('err', err));
-  }*/
-
-  /*editTodo(todo) {
-    fetch(`/api/todos/${todo.id}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        title: todo.title,
-        description: todo.description,
-      }),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        authorization: 'bearer ' + localStorage.getItem('token'),
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        M.toast({ html: 'Todo updated' });
-        //this.getTodos();
       })
       .catch((err) => console.log('err', err));
   }*/
@@ -88,7 +66,7 @@ const App = ({ currentTodo, logout, setCurrentTodo, title, token }) => {
           <div className="row">
             <div className="col s4">
               {currentTodo ? (
-                <EditionForm todo={currentTodo} onResetForm={showAddForm} />
+                <EditionForm />
               ) : (
                 <TodoAddForm onAdd={null} />
               )}
