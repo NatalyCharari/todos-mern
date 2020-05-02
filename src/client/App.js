@@ -14,25 +14,9 @@ const App = ({ currentTodo, logout, setCurrentTodo, title, token }) => {
   /*constructor(props) {
     super(props);
 
-    const items = localStorage.getItem('todos')
-      ? JSON.parse(localStorage.getItem('todos'))
-      : [];
-
-    this.state = {
-      title: 'Todo List',
-      todos: items,
-      currentTest: null,
-    };
-
     this.removeTodo = this.removeTodo.bind(this);
     this.editTodo = this.editTodo.bind(this);
     this.addTodo = this.addTodo.bind(this);
-
-    this.showEditForm = this.showEditForm.bind(this);
-    this.showAddForm = this.showAddForm.bind(this);
-
-    //this.login = this.login.bind(this);
-    //this.signup = this.signup.bind(this);
   }*/
 
   /*removeTodo(id) {
