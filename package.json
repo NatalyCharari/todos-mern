@@ -17,7 +17,12 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.10",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -27,9 +32,10 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "jest": "^24.8.0",
+    "lodash": "^4.17.15",
     "nodemon": "^1.19.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "prettier": "^2.0.5",
+    "prop-types": "^15.7.2",
     "react-test-renderer": "^16.8.6",
     "supertest": "^4.0.2",
     "webpack": "^4.35.0",
