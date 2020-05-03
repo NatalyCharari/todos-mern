@@ -1,31 +1,40 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-class Navigation extends React.Component {
+const Navigation = ({ onLogout, appTitle, token, reloadPage }) => {
+  const handleLogout = (event) => {
+    onLogout();
+    reloadPage(event);
+  };
 
-    constructor(props) {
-        super(props)
-        this.state = { title: props.title }
-        this.handleLogout = this.handleLogout.bind(this)
-    }
+  return (
+    <nav className="light-blue darken-4">
+      <div className="container">
+        <a className="brand-logo" href="/">
+          {appTitle}
+        </a>
+        {token && (
+          <ul id="nav-mobile" className="right hide-on-med-and-down">
+            <li>
+              <a onClick={handleLogout}>Logout</a>
+            </li>
+          </ul>
+        )}
+      </div>
+    </nav>
+  );
+};
 
-    handleLogout() {
-        this.props.onLogout()
-    }
+Navigation.defaultProps = {
+  onLogout: () => {},
+  appTitle: '',
+  reloadPage: () => {},
+};
 
-    render() {
-        return (
-            <nav className="light-blue darken-4">
-                <div className="container">
-                    <a className="brand-logo" href="/">{this.state.title}</a>
-                    { localStorage.getItem('token') &&
-                        <ul id="nav-mobile" className="right hide-on-med-and-down">
-                            <li><a onClick={this.handleLogout}>Logout</a></li>
-                        </ul>
-                    }
-                </div>
-            </nav>
-        )
-    }
-}
+Navigation.propTypes = {
+  onLogout: PropTypes.func,
+  appTitle: PropTypes.string,
+  reloadPage: PropTypes.func,
+};
 
-export default Navigation
+export default Navigation;

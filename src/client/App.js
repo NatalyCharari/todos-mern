@@ -1,18 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { removeToken } from './reducers/actions';
-
-import Navigation from './components/Navigation';
+import Navigation from './containers/Navigation';
 import LoginForm from './containers/LoginForm';
 import TodosPage from './containers/TodosPage';
 import EditionForm from './containers/EditionForm';
 import AddForm from './containers/AddForm';
 
-const App = ({ currentTodo, logout, title, token }) => {
+const App = ({ currentTodo, token }) => {
+  const reloadPage = (event) => {
+    event.preventDefault();
+    window.location.reload();
+  };
+
   return (
     <div>
-      <Navigation title={title} onLogout={logout} />
+      <Navigation reloadPage={reloadPage} />
       <div className="container">
         {token ? (
           <div className="row">
@@ -37,15 +40,9 @@ const App = ({ currentTodo, logout, title, token }) => {
 
 const mapStateToProps = ({ reduxState }) => ({
   currentTodo: reduxState.currentTodo,
-  title: reduxState.title,
   token: reduxState.token,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  logout: () => {
-    dispatch(removeToken);
-    window.location.reload();
-  },
-});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
