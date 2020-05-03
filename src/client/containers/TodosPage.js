@@ -15,8 +15,10 @@ const mapStateToProps = ({ reduxState }) => ({
 const mapDispatchToProps = (dispatch) => ({
   onEdit: (todoIdentifier) => dispatch(updateCurrentTodo(todoIdentifier)),
   onRead: (token) => dispatch(getTodos(token)),
-  onRemove: (todoIdentifier, token, receiver) =>
-    dispatch(deleteTodo(todoIdentifier, token, receiver)),
+  onRemove: (todoIdentifier, token, receiver) => {
+    dispatch(deleteTodo(todoIdentifier, token, receiver));
+    dispatch(getTodos(token));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodosPageContainer);

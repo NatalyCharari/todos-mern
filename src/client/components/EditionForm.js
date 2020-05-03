@@ -19,8 +19,7 @@ const EditionForm = ({ currentTodo, onEdit, onResetForm, token }) => {
     onResetForm(token);
   };
 
-  const updateTodo = (e) => {
-    e.preventDefault();
+  const updateTodo = () => {
     onEdit(
       {
         ...currentTodo,

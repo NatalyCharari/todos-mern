@@ -85,8 +85,3 @@ export const loginUser = (user) => fetchData(login, loginSuccess, user);
 
 export const registerUser = (user) =>
   fetchData(register, registerSuccess, user);
-
-export const onResetForm = (token) => (dispatch) => {
-  dispatch(updateCurrentTodo(null));
-  return dispatch(getTodos(token));
-};
