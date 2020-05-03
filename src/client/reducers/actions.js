@@ -1,3 +1,5 @@
+import { isObject } from 'lodash';
+
 import { getTodos, editTodo } from '../api/todo';
 import { login, register } from '../api/user';
 

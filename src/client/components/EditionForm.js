@@ -14,9 +14,9 @@ const EditionForm = ({ currentTodo, onEdit, onResetForm, token }) => {
     M.toast({ html: 'Todo updated' });
   };
 
-  const resetTodo = (e) => {
+  const resetFields = (e) => {
     e.preventDefault();
-    onResetForm();
+    onResetForm(token);
   };
 
   const updateTodo = (e) => {
@@ -75,7 +75,7 @@ const EditionForm = ({ currentTodo, onEdit, onResetForm, token }) => {
               type="button"
               style={{ marginLeft: '4px' }}
               className="btn blue darken-3"
-              onClick={resetTodo}
+              onClick={resetFields}
             >
               Cancel
             </button>
