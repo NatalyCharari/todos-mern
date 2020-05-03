@@ -1,6 +1,6 @@
 import { isObject } from 'lodash';
 
-import { getTodos, editTodo } from '../api/todo';
+import * as TodoActions from '../api/todo';
 import { login, register } from '../api/user';
 
 export const FETCH_TODOS_SUCCESS = 'FETCH_TODOS_SUCCESS';
@@ -28,7 +28,7 @@ export const removeToken = () => ({
   type: REMOVE_TOKEN,
 });
 
-export const updatedCurrentTodo = (todoIdentifier) => ({
+export const updateCurrentTodo = (todoIdentifier) => ({
   type: UPDATE_CURRENT_TODO,
   payload: { todoIdentifier },
 });
@@ -66,11 +66,20 @@ const fetchData = (request, action, data = null) => (dispatch) => {
   }
 };
 
-export const fetchTodos = (token) =>
-  fetchData(getTodos, fetchTodosSuccess, token);
+export const getTodos = (token) =>
+  fetchData(TodoActions.getTodos, fetchTodosSuccess, token);
 
-export const saveCurrentTodo = (todo, token, receiver) => (dispatch) =>
-  dispatch(handleResponse(editTodo(todo, token), null, receiver));
+export const deleteTodo = (todoIdentifier, token, receiver) => (dispatch) =>
+  dispatch(
+    handleResponse(
+      TodoActions.deleteTodo(todoIdentifier, token),
+      null,
+      receiver
+    )
+  );
+
+export const updateTodo = (todo, token, receiver) => (dispatch) =>
+  dispatch(handleResponse(TodoActions.updateTodo(todo, token), null, receiver));
 
 export const loginUser = (user) => fetchData(login, loginSuccess, user);
 
@@ -78,6 +87,6 @@ export const registerUser = (user) =>
   fetchData(register, registerSuccess, user);
 
 export const onResetForm = (token) => (dispatch) => {
-  dispatch(updatedCurrentTodo(null));
-  dispatch(fetchTodos(token));
+  dispatch(updateCurrentTodo(null));
+  return dispatch(getTodos(token));
 };

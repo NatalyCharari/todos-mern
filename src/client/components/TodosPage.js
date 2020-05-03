@@ -3,16 +3,24 @@ import PropTypes from 'prop-types';
 
 import TodoCard from './TodoCard';
 
-const TodosPage = ({ readTodos, removeTodo, showEditForm, todos, token }) => {
+const TodosPage = ({ onEdit, onRead, onRemove, todos, token }) => {
   useEffect(() => {
-    readTodos(token);
-  }, [readTodos, token]);
+    onRead(token);
+  }, [onRead, token]);
+
+  const showToast = () => {
+    M.toast({ html: 'Todo removed' });
+  };
 
   const renderComponent = () => {
     const cards = todos.map((todo, i) => {
       return (
         <div className="col s6" key={i}>
-          <TodoCard todo={todo} onRemove={removeTodo} onEdit={showEditForm} />
+          <TodoCard
+            todo={todo}
+            onRemove={() => onRemove(todo._id, token, showToast)}
+            onEdit={onEdit}
+          />
         </div>
       );
     });
@@ -24,17 +32,17 @@ const TodosPage = ({ readTodos, removeTodo, showEditForm, todos, token }) => {
 };
 
 TodosPage.defaultProps = {
-  readTodos: () => {},
-  removeTodo: () => {},
-  showEditForm: () => {},
+  onEdit: () => {},
+  onRead: () => {},
+  onRemove: () => {},
   todos: [],
   token: '',
 };
 
 TodosPage.propTypes = {
-  readTodos: PropTypes.func,
-  removeTodo: PropTypes.func,
-  showEditForm: PropTypes.func,
+  onEdit: PropTypes.func,
+  onRead: PropTypes.func,
+  onRemove: PropTypes.func,
   todos: PropTypes.array,
   token: PropTypes.string,
 };

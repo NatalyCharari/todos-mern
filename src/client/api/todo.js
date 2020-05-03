@@ -14,7 +14,7 @@ export const getTodos = (token) =>
     },
   }).catch(logError);
 
-export const removeTodo = (id, token) =>
+export const deleteTodo = (id, token) =>
   fetch(`${baseDomain}/${id}`, {
     method: 'DELETE',
     headers: {
@@ -22,7 +22,7 @@ export const removeTodo = (id, token) =>
     },
   }).catch(logError);
 
-export const editTodo = (todo, token) =>
+export const updateTodo = (todo, token) =>
   fetch(`${baseDomain}/${todo._id}`, {
     method: 'PUT',
     body: JSON.stringify({

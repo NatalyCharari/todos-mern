@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchTodos, updatedCurrentTodo } from '../reducers/actions';
+import { deleteTodo, getTodos, updateCurrentTodo } from '../reducers/actions';
 import TodosPageComponent from '../components/TodosPage';
 
 export const TodosPageContainer = (props) => {
@@ -13,9 +13,10 @@ const mapStateToProps = ({ reduxState }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  readTodos: (token) => dispatch(fetchTodos(token)),
-  showEditForm: (todoIdentifier) =>
-    dispatch(updatedCurrentTodo(todoIdentifier)),
+  onEdit: (todoIdentifier) => dispatch(updateCurrentTodo(todoIdentifier)),
+  onRead: (token) => dispatch(getTodos(token)),
+  onRemove: (todoIdentifier, token, receiver) =>
+    dispatch(deleteTodo(todoIdentifier, token, receiver)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodosPageContainer);
