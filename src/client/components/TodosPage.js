@@ -19,7 +19,7 @@ const TodosPage = ({ onEdit, onRead, onRemove, todos, token }) => {
           <TodoCard
             todo={todo}
             onRemove={() => onRemove(todo._id, token, showToast)}
-            onEdit={onEdit}
+            onEdit={() => onEdit(todo._id)}
           />
         </div>
       );
