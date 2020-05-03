@@ -2,7 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const path = require('path')
 
-const { mongoose } = require('./database')
+const { mongoose } = require('./server/database')
 const app = express()
 
 // Settings
@@ -13,8 +13,8 @@ app.use(morgan('dev'))
 app.use(express.json())
 
 // Routes
-app.use('/api/todos', require('./routes/task.routes'))
-app.use('/api/users', require('./routes/user.routes'))
+app.use('/api/todos', require('./server/routes/task.routes'))
+app.use('/api/users', require('./server/routes/user.routes'))
 
 // Static files
 app.use(express.static(path.join(__dirname, 'public')))
