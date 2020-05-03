@@ -78,6 +78,9 @@ export const deleteTodo = (todoIdentifier, token, receiver) => (dispatch) =>
     )
   );
 
+export const addTodo = (todo, token, receiver) => (dispatch) =>
+  dispatch(handleResponse(TodoActions.addTodo(todo, token), null, receiver));
+
 export const updateTodo = (todo, token, receiver) => (dispatch) =>
   dispatch(handleResponse(TodoActions.updateTodo(todo, token), null, receiver));
 

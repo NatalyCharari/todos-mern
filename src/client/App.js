@@ -2,20 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Navigation from './components/Navigation';
-import TodoAddForm from './components/TodoAddForm';
 
 import { removeToken } from './reducers/actions';
 
 import LoginForm from './containers/LoginForm';
 import TodosPage from './containers/TodosPage';
 import EditionForm from './containers/EditionForm';
+import AddForm from './containers/AddForm';
 
 const App = ({ currentTodo, logout, title, token }) => {
   /*constructor(props) {
     super(props);
 
-    this.removeTodo = this.removeTodo.bind(this);F
-    this.addTodo = this.addTodo.bind(this);
+    this.removeTodo = this.removeTodo.bind(this);
   }*/
 
   /*removeTodo(id) {
@@ -36,24 +35,6 @@ const App = ({ currentTodo, logout, title, token }) => {
       .catch((err) => console.log('err', err));
   }*/
 
-  /*addTodo(task) {
-    fetch('/api/todos', {
-      method: 'POST',
-      body: JSON.stringify(task),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        authorization: 'bearer ' + localStorage.getItem('token'),
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        M.toast({ html: 'Todo saved' });
-        //this.getTodos();
-      })
-      .catch((err) => console.log('err', err));
-  }*/
-
   return (
     <div>
       <Navigation title={title} onLogout={logout} />
@@ -61,7 +42,7 @@ const App = ({ currentTodo, logout, title, token }) => {
         {token ? (
           <div className="row">
             <div className="col s4">
-              {currentTodo ? <EditionForm /> : <TodoAddForm onAdd={null} />}
+              {currentTodo ? <EditionForm /> : <AddForm />}
             </div>
             <div className="col s8">
               <TodosPage />
